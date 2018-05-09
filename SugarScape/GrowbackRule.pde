@@ -14,8 +14,6 @@ class GrowbackRule {
   */
   //works in steps, sets sugar back to full
   public void growBack(Square s) {
-    for(int i = s.getSugar(); i <= s.getMaxSugar(); i += rate){
-      s.setSugar(s.getSugar() + rate);
-    }
+    s.setSugar(s.getSugar() + rate);
   }
 }

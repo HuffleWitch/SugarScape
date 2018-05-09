@@ -160,6 +160,15 @@ class SugarGrid {
     return l;
   }
   
+  public void display(){
+    for(int i = 0; i < w; i++){
+      for(int j = 0; j < h; j++){
+        Square sq = gridArray[i][j];
+        sq.display(sideLength);
+      }
+    }
+  }
+  
   public void update(){
     ArrayList<Agent> lastAgent = new ArrayList<Agent>();
    for(int i = 0; i< w; i++){

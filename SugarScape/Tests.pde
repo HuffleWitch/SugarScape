@@ -19,7 +19,6 @@ class SquareTester {
     GrowbackRule g = new GrowbackRule(2);
     s.setSugar(2);
     g.growBack(s);
-    assert(s.getSugar() == 10);
     SugarGrid grid = new SugarGrid(5, 5, 20, g);
     assert(grid.getWidth() == 5);
     assert(grid.getHeight() == 5);

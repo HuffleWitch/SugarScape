@@ -1,10 +1,17 @@
-void setup() {
-  SquareTester st = new SquareTester();
-  st.test();  
-  fill(0,255,0);
-  noStroke();
-  ellipse(50, 50, 50,50);
+SugarGrid myGrid;
+void setup(){
+  size(1000,800);
+  myGrid = new SugarGrid(50,40,20, new GrowbackRule(0));
+  myGrid.addSugarBlob(10,10,1,8);
+  Agent ag = new Agent(1,1,50, new MovementRule());
+  myGrid.placeAgent(ag,10,10);
+  myGrid.display();
+  frameRate(2);
+
 }
 
-void draw() {
+void draw(){
+  myGrid.update();
+  background(255);
+  myGrid.display();
 }
