@@ -16,6 +16,10 @@ class SquareTester {
     assert(s.getX() == 50);
     assert(s.getY() == 50);
     assert(s.getAgent() == null);
-    s.GrowbackRule(2);
+    GrowbackRule g = new GrowbackRule(2);
+    s.setSugar(2);
+    g.growBack(s);
+    assert(s.getSugar() == 10);
+    
   }
 }

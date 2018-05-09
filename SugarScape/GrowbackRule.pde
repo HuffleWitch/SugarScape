@@ -12,6 +12,7 @@ class GrowbackRule {
   *  The Autograder will provide its own Square class, 
   *  which may not have the private methods or variable names you expect.
   */
+  //works in steps, sets sugar back to full
   public void growBack(Square s) {
     for(int i = s.getSugar(); i <= s.getMaxSugar(); i += rate){
       s.setSugar(s.getSugar() + rate);
