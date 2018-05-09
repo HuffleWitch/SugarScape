@@ -16,5 +16,6 @@ class SquareTester {
     assert(s.getX() == 50);
     assert(s.getY() == 50);
     assert(s.getAgent() == null);
+    s.GrowbackRule(2);
   }
 }

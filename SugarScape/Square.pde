@@ -138,6 +138,6 @@ class Square {
   public void display(int size) {
     strokeWeight(4);
     fill(255, 255, 255 - sugarLevel/ 6.0*255);
-    rect(x, y, size, size);
+    rect(size*x, size*y, size, size);
   }
 }
