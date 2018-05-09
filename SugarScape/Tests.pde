@@ -20,6 +20,13 @@ class SquareTester {
     s.setSugar(2);
     g.growBack(s);
     assert(s.getSugar() == 10);
+    SugarGrid grid = new SugarGrid(5, 5, 20, g);
+    assert(grid.getWidth() == 5);
+    assert(grid.getHeight() == 5);
+    assert(grid.getSquareSize() == 25);
+    assert(grid.getSugarAt(2,2) == 0);
+    assert(grid.getMaxSugarAt(2,2) == 0);
+    assert(grid.getAgentAt(2,2) == null);
     
   }
 }
