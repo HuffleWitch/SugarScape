@@ -20,19 +20,23 @@ class Square {
   *   and the specified x and y coordinates. The square should be unoccupied.
   */
   public Square(int sugarLevel, int maxSugarLevel, int x, int y) {
+    this.sugarLevel = sugarLevel;
+    this.maxSugarLevel = maxSugarLevel;
+    this.x = x;
+    this.y = y;
   }
   
   /* Returns the current level of sugar
   */
   public int getSugar() {
-    return 0; //stubbed
+    return sugarLevel;
   }
   
   /* returns the maximum amount of sugar that can be stored here.
   *
   */
   public int getMaxSugar() {
-    return 0; //stubbed
+    return maxSugarLevel;
   }
   
   /* returns the x coordinate of the Square
@@ -40,7 +44,7 @@ class Square {
   *
   */
   public int getX() {
-    return 0; // stubbed
+    return x;
   }
   
   /* returns the y coordinate of the Square
@@ -48,7 +52,7 @@ class Square {
   *
   */
   public int getY() {
-    return 0; // stubbed
+    return y;
   }
   
   /* Sets the sugar level to the specified value. 
@@ -58,7 +62,17 @@ class Square {
   *
   */
   public void setSugar(int howMuch) {
+    if(howMuch < 0){
+     sugarLevel = 0; 
+    }
+    else if(howMuch > maxSugarLevel){
+     sugarLevel = maxSugarLevel; 
+    }
+    else{
+     sugarLevel = howMuch; 
+    }
   }
+  
   
   /* Sets the maximum sugar level to the specified value. 
   *  If the specified value is less than 0, sets the maximum sugar level to 0 instead. 
@@ -66,6 +80,15 @@ class Square {
   *
   */
   public void setMaxSugar(int howMuch) {
+    if(howMuch < 0){
+     maxSugarLevel = 0; 
+    }
+    else{
+     maxSugarLevel = howMuch; 
+    }
+    if(sugarLevel > maxSugarLevel){
+     sugarLevel = maxSugarLevel; 
+    }
   }
   
   /* Returns the Agent object that currently occupies this Square, if any. 
@@ -76,7 +99,12 @@ class Square {
   *
   */
   public Agent getAgent() {
-    return null; // stubbed
+    if(agent == null){
+      return null; 
+    }
+    else{
+     return agent; 
+    }
   }
   
   /* Sets the Agent currently occupying this Square to the specified Agent a. 
@@ -87,9 +115,12 @@ class Square {
   *
   */
   public void setAgent(Agent a) {
-    if (1 == 0) {
+    if (this.getAgent() == null || this.getAgent() == a || a == null) {
+      this.agent = a;
+    }
+    else{
       assert(false);
-    } // stubbed
+    } 
   }
   
   /* Draws a Square. 
@@ -105,5 +136,8 @@ class Square {
   *
   */
   public void display(int size) {
+    strokeWeight(4);
+    fill(255, 255, 255 - sugarLevel/ 6.0*255);
+    rect(x, y, size, size);
   }
 }
