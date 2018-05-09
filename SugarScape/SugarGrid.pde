@@ -159,4 +159,39 @@ class SugarGrid {
     }
     return l;
   }
+  
+  public void update(){
+    ArrayList<Agent> lastAgent = new ArrayList<Agent>();
+   for(int i = 0; i< w; i++){
+    for(int j =0; j < h; j++){
+     Square current = gridArray[i][j];
+     g.growBack(current);
+     if (current.getAgent() != null & lastAgent.contains(current.getAgent()) == false){
+       Agent currentAgent = current.getAgent();
+       LinkedList<Square> view = generateVision(current.getX(), current.getY(), currentAgent.getVision());
+       Square destination = null;
+       MovementRule move = currentAgent.getMovementRule();
+       while(view.size() != 0){
+        destination = move.move(view, this, gridArray[(w-1)/2][(h-1)/2]);
+        if(destination.getAgent() == null){
+         currentAgent.move(current, destination);
+         break;
+        }
+        else{
+          view.remove(destination); 
+         }
+        }
+        currentAgent.step();
+        if(currentAgent.isAlive()){
+         currentAgent.eat(destination);
+         lastAgent.add(currentAgent);
+        }
+        else{
+         destination.setAgent(null);
+         listOfAgents.remove(currentAgent);
+        }
+       }
+     }
+    }
+   }
 }
