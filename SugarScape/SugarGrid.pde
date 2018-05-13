@@ -19,8 +19,8 @@ class SugarGrid {
     this.h = h;
     this.sideLength = sideLength;
     this.g = g;
-    for (int i = 1; i < w; i++) {
-      for (int j = 1; j < h; j++) {
+    for (int i = 0; i < w; i++) {
+      for (int j = 0; j < h; j++) {
         gridArray[i][j] = new Square(0, 0, i*sideLength, j*sideLength);
       }
     }
@@ -198,7 +198,9 @@ class SugarGrid {
   public void display() {
     for (int i = 0; i < w; i++) {
       for (int j = 0; j < h; j++) {
-        this.gridArray[i][j].display(sideLength);
+        Square sq = this.gridArray[i][j]; //<>//
+        fill(255); //<>//
+        sq.display(sideLength);
       }
     }
   }
