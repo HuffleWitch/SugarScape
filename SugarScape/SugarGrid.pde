@@ -30,11 +30,11 @@ class SugarGrid {
    *
    */
   public int getWidth() {
-    return w;
+    return this.w;
   }
 
   public int getHeight() {
-    return h;
+    return this.h;
   }
 
   public int getSquareSize() {
@@ -68,6 +68,8 @@ class SugarGrid {
   public void placeAgent(Agent a, int x, int y) {
     if (gridArray[x][y].getAgent() == null) {
       gridArray[x][y].setAgent(a);
+    } else {
+     assert(false); 
     }
   }
 
@@ -159,48 +161,45 @@ class SugarGrid {
     }
     return l;
   }
-  
-  public void display(){
-    for(int i = 0; i < w; i++){
-      for(int j = 0; j < h; j++){
-        Square sq = gridArray[i][j];
-        sq.display(sideLength);
+
+  public void update() {
+    ArrayList<Agent> lastAgent = new ArrayList<Agent>();
+    for (int i = 0; i< w; i++) {
+      for (int j =0; j < h; j++) {
+        Square current = gridArray[i][j];
+        g.growBack(current);
+        if (current.getAgent() != null && lastAgent.contains(current.getAgent()) == false) {
+          Agent currentAgent = current.getAgent();
+          LinkedList<Square> view = generateVision(current.getX(), current.getY(), currentAgent.getVision());
+          Square destination = null;
+          MovementRule move = currentAgent.getMovementRule();
+          while (view.size() != 0) {
+            destination = move.move(view, this, gridArray[(w-1)/2][(h-1)/2]);
+            if (destination.getAgent() == null) {
+              currentAgent.move(current, destination);
+              break;
+            } else {
+              view.remove(destination);
+            }
+          }
+          currentAgent.step();
+          if (currentAgent.isAlive()) {
+            currentAgent.eat(destination);
+            lastAgent.add(currentAgent);
+          } else {
+            destination.setAgent(null);
+            listOfAgents.remove(currentAgent);
+          }
+        }
       }
     }
   }
-  
-  public void update(){
-    ArrayList<Agent> lastAgent = new ArrayList<Agent>();
-   for(int i = 0; i< w; i++){
-    for(int j =0; j < h; j++){
-     Square current = gridArray[i][j];
-     g.growBack(current);
-     if (current.getAgent() != null & lastAgent.contains(current.getAgent()) == false){
-       Agent currentAgent = current.getAgent();
-       LinkedList<Square> view = generateVision(current.getX(), current.getY(), currentAgent.getVision());
-       Square destination = null;
-       MovementRule move = currentAgent.getMovementRule();
-       while(view.size() != 0){
-        destination = move.move(view, this, gridArray[(w-1)/2][(h-1)/2]);
-        if(destination.getAgent() == null){
-         currentAgent.move(current, destination);
-         break;
-        }
-        else{
-          view.remove(destination); 
-         }
-        }
-        currentAgent.step();
-        if(currentAgent.isAlive()){
-         currentAgent.eat(destination);
-         lastAgent.add(currentAgent);
-        }
-        else{
-         destination.setAgent(null);
-         listOfAgents.remove(currentAgent);
-        }
-       }
-     }
+
+  public void display() {
+    for (int i = 0; i < w; i++) {
+      for (int j = 0; j < h; j++) {
+        this.gridArray[i][j].display(sideLength);
+      }
     }
-   }
+  }
 }
