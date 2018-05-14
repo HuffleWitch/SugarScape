@@ -1,12 +1,12 @@
 SugarGrid myGrid;
-//Agent ag;
+Agent ag;
 void setup(){
   size(1000,800);
   myGrid = new SugarGrid(50,40,20, new GrowbackRule(4));
-  myGrid.addSugarBlob(10,10,1,8);
-  //ag = new Agent(1,1,50, new MovementRule());
-  //myGrid.placeAgent(ag,10,10);
-  myGrid.display();
+  myGrid.addSugarBlob(0,0,10,8);
+  ag = new Agent(1,1,50, new MovementRule());
+  //myGrid.placeAgent(ag,60,60);
+  myGrid.display(); //<>//
   frameRate(2);
 
 }

@@ -66,6 +66,8 @@ class SugarGrid {
    *
    */
   public void placeAgent(Agent a, int x, int y) {
+    x = x/sideLength;
+    y = y/sideLength;
     if (gridArray[x][y].getAgent() == null) {
       gridArray[x][y].setAgent(a);
     } else {
@@ -117,19 +119,31 @@ class SugarGrid {
    *
    */
   public void addSugarBlob(int x, int y, int radius, int max) {
-    int inc = 1;
-    while (inc >= max) {
-      for (int i =0; i <w; i++) {
+    x = x/sideLength;
+    y = y/sideLength;
+    Square blobCenter = gridArray[x][y];
+    if (blobCenter.getMaxSugar() <= max){
+     blobCenter.setMaxSugar(max);
+     blobCenter.setSugar(max);
+    } else {
+     blobCenter.setSugar(blobCenter.getMaxSugar()); 
+    }
+    for(int inc = 1; inc <= max; inc++) {
+      for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-          double euDistance = euclidianDistance(this.gridArray[i][j], this.gridArray[x][y]);
-          if (euDistance < radius * (inc ++)) {
+          Square current = gridArray[i][j];
+          double euDistance = euclidianDistance(current, blobCenter);
+          if (euDistance < (radius * inc)) {
+            if(max - inc > current.getMaxSugar()){
             int sugar = max - inc;
-            gridArray[i][j].setMaxSugar(sugar);
-            gridArray[i][j].setSugar(sugar);
+            current.setMaxSugar(sugar);
+            current.setSugar(sugar);
+            } else{
+             current.setSugar(current.getMaxSugar()); 
+            }
           }
         }
       }
-      inc++;
     }
   }
 
@@ -146,6 +160,8 @@ class SugarGrid {
    *
    */
   public LinkedList<Square> generateVision(int x, int y, int radius) {
+    x = x/sideLength;
+    y = y/sideLength;
     LinkedList<Square> l = new LinkedList();
     if (radius == 0) {
       l.add(this.gridArray[x][y]);
@@ -198,8 +214,8 @@ class SugarGrid {
   public void display() {
     for (int i = 0; i < w; i++) {
       for (int j = 0; j < h; j++) {
-        Square sq = this.gridArray[i][j]; //<>//
-        sq.display(sideLength); //<>//
+        Square sq = this.gridArray[i][j];
+        sq.display(sideLength);
       }
     }
   }

@@ -131,11 +131,13 @@ class Square {
    *
    */
   public void display(int size) {
-    fill(255, 255, 255 - sugarLevel/ 6.0*255);
-    strokeWeight(1);
-    rect(x, y, size, size);
-    if (getAgent() != null) {
+    strokeWeight(4);
+    stroke(100);
+    fill(255, 255, 255 - this.sugarLevel/ 6.0*255);
+    if (this.getAgent() != null) {
       agent.display(size*x + size/2, size*y + size/2, size);
     }
+    rect(x, y, size, size);
+    
   }
 }
