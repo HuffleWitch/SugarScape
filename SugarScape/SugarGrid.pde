@@ -219,4 +219,15 @@ class SugarGrid {
       }
     }
   }
+  
+  public void addAgentAtRandom(Agent a){
+    int ranX = (int) random(0, w);
+    int ranY = (int) random(0, h);
+    Square placement = gridArray[ranX][ranY];
+    if(placement.getAgent() == null){
+     this.placeAgent(a,ranX, ranY); 
+    } else {
+     this.addAgentAtRandom(a); 
+    }
+  }
 }
