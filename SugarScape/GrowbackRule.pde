@@ -42,7 +42,7 @@ class SeasonalGrowbackRule implements GrowthRule{
   }
   
   public void growBack(Square s){
-   if((s.getY() <= equator && northSummer == true) || (s.getY() > equator && northSummer == false){
+   if((s.getY() <= equator && northSummer == true) || (s.getY() > equator && northSummer == false)){
     s.setSugar(s.getSugar() + alpha); 
    } else{
     s.setSugar(s.getSugar() + beta); 

@@ -3,7 +3,7 @@ import java.util.*;
 
 class SugarGrid {
   private int w, h, sideLength;
-  private GrowbackRule g;
+  private GrowthRule g;
   private Square[][] gridArray;
   private ArrayList<Agent> listOfAgents;
   /* Initializes a new SugarGrid object with a w*h grid of Squares, 
@@ -13,7 +13,7 @@ class SugarGrid {
    *  Initialize the Squares in the grid to have 0 initial and 0 maximum sugar.
    *
    */
-  public SugarGrid(int w, int h, int sideLength, GrowbackRule g) {
+  public SugarGrid(int w, int h, int sideLength, GrowthRule g) {
     this.gridArray = new Square[w][h];
     this.w = w;
     this.h = h;
