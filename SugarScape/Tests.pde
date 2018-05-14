@@ -26,6 +26,8 @@ class SquareTester {
     assert(grid.getSugarAt(2,2) == 0);
     assert(grid.getMaxSugarAt(2,2) == 0);
     assert(grid.getAgentAt(2,2) == null);
+    //agent tests
+    
     
   }
 }

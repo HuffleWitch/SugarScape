@@ -10,6 +10,7 @@ class Agent {
   private int vision;
   private int sugarLevel;
   private MovementRule movementRule;
+  private int age;
   
   /* initializes a new Agent with the specified values for its 
   *  metabolism, vision, stored sugar, and movement rule.
@@ -20,6 +21,7 @@ class Agent {
     this.vision = vision;
     this.sugarLevel = initialSugar;
     this.movementRule = m;
+    this.age = 0;
   }
   
   /* returns the amount of food the agent needs to eat each turn to survive. 
@@ -28,6 +30,19 @@ class Agent {
   public int getMetabolism() {
     return metabolism; 
   } 
+  /* returns the agent's age */
+  public int getAge(){
+   return age; 
+  }
+  
+  /* sets the agent's age to howMuch, crashes with a negative age */
+  public void setAge(int howMuch){
+   if (howMuch < 0){
+    assert(false); 
+   } else {
+    this.age = howMuch; 
+   }
+  }
   
   /* returns the agent's vision radius.
   *
@@ -70,6 +85,7 @@ class Agent {
   *
   */
   public void step() {
+    age++;
     for(int i = sugarLevel; i <= 0; i -= metabolism){
       if( i < 0){
        sugarLevel = 0; 
