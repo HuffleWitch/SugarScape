@@ -110,7 +110,7 @@ class Agent {
   
   public void display(int x, int y, int scale){
     //diameter 3*scale/4
-    fill(255);
+    fill(0);
     ellipse(x, y, 3*scale/4, 3*scale/4);
   }
 }
