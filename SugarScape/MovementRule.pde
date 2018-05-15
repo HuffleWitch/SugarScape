@@ -1,7 +1,11 @@
 import java.util.LinkedList;
 import java.util.Collections;
 
-class MovementRule {
+interface MovementRule{
+ public Square move(LinkedList<Square> neighbourhood, SugarGrid g, Square middle);
+}
+
+class SugarSeekingMovementRule implements MovementRule{
   /* The default constructor. For now, does nothing.
    *
    */
@@ -9,7 +13,7 @@ class MovementRule {
   SugarGrid g;
   Square middle;
 
-  public MovementRule() {
+  public SugarSeekingMovementRule() {
   }
 
   /* For now, returns the Square containing the most sugar. 
@@ -37,4 +41,31 @@ class MovementRule {
     }
     return mostSugarSquare;
   }
+}
+
+class PollutionMovementRule implements MovementRule{
+  
+ public Square move(LinkedList<Square> neighborhood SugarGrid g, Square middle){
+   
+  Square max = neighborhood.peek();
+  Collections.shuffle(neighborhood);
+  boolean noPollMax = (max.getPollution() == 0);
+  
+  for(Sqaure s : neighborhood){
+   boolean closerSquare = (g.eulidianDistance(s, middle) < g.euclidianDistance(max, middle));
+   
+   if (s.getPollution() == 0){
+    if(noPollMax == false || s.getSugar() > max.getSugar() || (s.getSugar() == max.getSugar() && closerSquare)){
+     max = s; 
+    }
+   } else if (noPollMax == false){
+    float newRatio = s.getSugar() * (1.0 / s.getPollution());
+    float currentRatio = max.getSugar() * (1.0 / max.getPollution());
+    if (newRatio > currentRatio || (newRatio == currentRatio && closerSquare)){
+     max = s; 
+    }
+   }
+  }
+  return max;
+ }
 }

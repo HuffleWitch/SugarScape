@@ -14,6 +14,7 @@ class Square {
   private int sugarLevel;
   private int maxSugarLevel;
   private Agent agent;
+  private int pollution;
 
   /* Constructor
    *   initializes a new Square with the specified initial and maximum sugar levels, 
@@ -24,6 +25,21 @@ class Square {
     this.maxSugarLevel = maxSugarLevel;
     this.x = x;
     this.y = y;
+    this.pollution =0;
+  }
+  
+  //returns the current pollution level;
+  public int getPollution(){
+   return pollution; 
+  }
+  
+  //sets the pollution level to howMuch
+  public void setPollution(int howMuch){
+   if(howMuch < 0){
+    this.pollution = 0; 
+   } else {
+    this.pollution = howMuch; 
+   }
   }
 
   /* Returns the current level of sugar
