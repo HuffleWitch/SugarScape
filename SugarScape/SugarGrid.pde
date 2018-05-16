@@ -60,6 +60,11 @@ class SugarGrid {
   public Agent getAgentAt(int i, int j) {
     return gridArray[i][j].getAgent();
   }
+  
+  //returns the like of all agents on the SugarGrid
+  public ArrayList<Agent> getAgents(){
+   return listOfAgents; 
+  }
 
   /* places Agent a at Square(x,y), provided that the square is empty. 
    *  If the square is not empty, the program should crash with an assertion failure.
