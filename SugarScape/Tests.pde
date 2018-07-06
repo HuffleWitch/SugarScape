@@ -27,7 +27,7 @@ class SquareTester {
     assert(grid.getMaxSugarAt(2,2) == 0);
     assert(grid.getAgentAt(2,2) == null);
     //agent and AgentFactory tests
-    MovementRule m = new MovementRule();
+    MovementRule m = new SugarSeekingMovementRule();
     AgentFactory fac = new AgentFactory(2, 5, 1, 5, 3, 6, m);
     Agent a = fac.makeAgent();
     assert(a.getAge() == 0);

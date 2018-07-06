@@ -45,14 +45,14 @@ class SugarSeekingMovementRule implements MovementRule{
 
 class PollutionMovementRule implements MovementRule{
   
- public Square move(LinkedList<Square> neighborhood SugarGrid g, Square middle){
+ public Square move(LinkedList<Square> neighborhood, SugarGrid g, Square middle){
    
   Square max = neighborhood.peek();
   Collections.shuffle(neighborhood);
   boolean noPollMax = (max.getPollution() == 0);
   
-  for(Sqaure s : neighborhood){
-   boolean closerSquare = (g.eulidianDistance(s, middle) < g.euclidianDistance(max, middle));
+  for(Square s : neighborhood){
+   boolean closerSquare = (g.euclidianDistance(s, middle) < g.euclidianDistance(max, middle));
    
    if (s.getPollution() == 0){
     if(noPollMax == false || s.getSugar() > max.getSugar() || (s.getSugar() == max.getSugar() && closerSquare)){
