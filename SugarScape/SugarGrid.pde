@@ -5,7 +5,7 @@ class SugarGrid {
   private int w, h, sideLength;
   private GrowthRule g;
   private Square[][] gridArray;
-  private ArrayList<Agent> listOfAgents;
+  private ArrayList<Agent> listOfAgents = new ArrayList();
   /* Initializes a new SugarGrid object with a w*h grid of Squares, 
    *  a sideLength for the squares (used for drawing purposes only) 
    *  of the specified value, and 

@@ -30,7 +30,7 @@ void setup(){
    myGrid.addAgentAtRandom(a);
   }
   myGrid.display();
-  frameRate(100);
+  frameRate(2);
 
 }
 
