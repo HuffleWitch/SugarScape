@@ -29,7 +29,7 @@ void setup(){
    Agent a = af.makeAgent();
    myGrid.addAgentAtRandom(a);
   }
-  myGrid.display(); //<>//
+  myGrid.display();
   frameRate(100);
 
 }

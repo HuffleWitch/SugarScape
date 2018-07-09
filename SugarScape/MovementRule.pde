@@ -26,17 +26,17 @@ class SugarSeekingMovementRule implements MovementRule{
     Square mostSugarSquare = null;
     Square current = null;
     Collections.shuffle(neighbourhood);
+    double mostSugarDist = 888888888;
     for (int i = 0; i < neighbourhood.size(); i++) {
       current = neighbourhood.get(i);
-      if (current.getSugar() > mostSugar) {
+      double currentSugarDist = g.euclidianDistance(current, middle);
+      if (current.getSugar() >  mostSugar | 
+         (current.getSugar() == mostSugar && mostSugarDist > currentSugarDist)
+         ) {
         mostSugarSquare = current;
         mostSugar = mostSugarSquare.getSugar();
-      } else if (current.getSugar() == mostSugar) {
-        double mostSugarDist = g.euclidianDistance(mostSugarSquare, middle);
-        double currentSugarDist = g.euclidianDistance(current, middle);
-        if (mostSugarDist > currentSugarDist) {
-          mostSugarSquare = current;
-        }
+        mostSugarDist = g.euclidianDistance(mostSugarSquare, middle);
+         
       }
     }
     return mostSugarSquare;

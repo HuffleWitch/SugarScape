@@ -75,6 +75,7 @@ class SugarGrid {
     y = y/sideLength;
     if (gridArray[x][y].getAgent() == null) {
       gridArray[x][y].setAgent(a);
+      //listOfAgents.add(a);
     } else {
      assert(false); 
     }
@@ -192,10 +193,16 @@ class SugarGrid {
         if (current.getAgent() != null && lastAgent.contains(current.getAgent()) == false) {
           Agent currentAgent = current.getAgent();
           LinkedList<Square> view = generateVision(current.getX(), current.getY(), currentAgent.getVision());
+          // destination is null and isn't updated 
           Square destination = null;
+          //print("destination", destination);
+          //move is null
           MovementRule move = currentAgent.getMovementRule();
+          //print("move", move);
           while (view.size() != 0) {
+            //null pointer exception: move or destination
             destination = move.move(view, this, gridArray[(w-1)/2][(h-1)/2]);
+            //print("destination", destination);
             if (destination.getAgent() == null) {
               currentAgent.move(current, destination);
               break;
@@ -226,13 +233,17 @@ class SugarGrid {
   }
   
   public void addAgentAtRandom(Agent a){
-    int ranX = (int) random(0, w);
-    int ranY = (int) random(0, h);
-    Square placement = gridArray[ranX][ranY];
-    if(placement.getAgent() == null){
-     this.placeAgent(a,ranX, ranY); 
-    } else {
-     this.addAgentAtRandom(a); 
+    ArrayList<Square> nullSquares = new ArrayList<Square>();
+    for(int gridX = 0; gridX < w; gridX++){
+     for(int gridY = 0; gridY < h; gridY++){
+      Square current = gridArray[gridX][gridY];
+      if(current.getAgent() == null){
+       nullSquares.add(current); 
+      }
+     }
     }
+    int rand = (int)random(nullSquares.size());
+    Square randSquare = nullSquares.get(rand);
+    placeAgent(a, randSquare.getX(), randSquare.getY());
   }
 }
