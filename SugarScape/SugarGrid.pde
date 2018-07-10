@@ -60,10 +60,10 @@ class SugarGrid {
   public Agent getAgentAt(int i, int j) {
     return gridArray[i][j].getAgent();
   }
-  
+
   //returns the like of all agents on the SugarGrid
-  public ArrayList<Agent> getAgents(){
-   return listOfAgents; 
+  public ArrayList<Agent> getAgents() {
+    return listOfAgents;
   }
 
   /* places Agent a at Square(x,y), provided that the square is empty. 
@@ -75,9 +75,9 @@ class SugarGrid {
     y = y/sideLength;
     if (gridArray[x][y].getAgent() == null) {
       gridArray[x][y].setAgent(a);
-      //listOfAgents.add(a);
+      listOfAgents.add(a);
     } else {
-     assert(false); 
+      assert(false);
     }
   }
 
@@ -128,24 +128,24 @@ class SugarGrid {
     x = x/sideLength;
     y = y/sideLength;
     Square blobCenter = gridArray[x][y];
-    if (blobCenter.getMaxSugar() <= max){
-     blobCenter.setMaxSugar(max);
-     blobCenter.setSugar(max);
+    if (blobCenter.getMaxSugar() <= max) {
+      blobCenter.setMaxSugar(max);
+      blobCenter.setSugar(max);
     } else {
-     blobCenter.setSugar(blobCenter.getMaxSugar()); 
+      blobCenter.setSugar(blobCenter.getMaxSugar());
     }
-    for(int inc = 1; inc <= max; inc++) {
+    for (int inc = 1; inc <= max; inc++) {
       for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
           Square current = gridArray[i][j];
           double euDistance = euclidianDistance(current, blobCenter);
           if (euDistance < (radius * inc)) {
-            if(max - inc > current.getMaxSugar()){
-            int sugar = max - inc;
-            current.setMaxSugar(sugar);
-            current.setSugar(sugar);
-            } else{
-             current.setSugar(current.getMaxSugar()); 
+            if (max - inc > current.getMaxSugar()) {
+              int sugar = max - inc;
+              current.setMaxSugar(sugar);
+              current.setSugar(sugar);
+            } else {
+              current.setSugar(current.getMaxSugar());
             }
           }
         }
@@ -166,22 +166,33 @@ class SugarGrid {
    *
    */
   public LinkedList<Square> generateVision(int x, int y, int radius) {
+    LinkedList<Square> view = new LinkedList();
     x = x/sideLength;
     y = y/sideLength;
-    LinkedList<Square> l = new LinkedList();
-    if (radius == 0) {
-      l.add(this.gridArray[x][y]);
-    } else {
-      for (int i = 0; i <w; i++) {
-        for (int j = 0; j <h; j++) {
-          int euDistan = (int) euclidianDistance(this.gridArray[i][j], this.gridArray[x][y]);
-          if (euDistan <= radius) {
-            l.add(this.gridArray[i][j]);
-          }
-        }
+    for (int i = -radius; i <= radius; i++) {
+      int new_x = x+i;
+      int new_y = y+i;
+      
+      // TODO: come up with a cleaner way of doing the following
+      if (new_x < 0){
+       new_x = new_x + w; 
+      }
+      if (new_y < 0){
+       new_y = new_y + h; 
+      }
+      if (new_x >= w){
+       new_x = new_x - w; 
+      }
+      if (new_y >= h){
+       new_y = new_y - h; 
+      }
+      
+      view.add(gridArray[x][new_y]);
+      if (new_x != 0) { // otherwise would add self twice
+        view.add(gridArray[new_x][y]);
       }
     }
-    return l;
+    return view;
   }
 
   public void update() {
@@ -231,16 +242,16 @@ class SugarGrid {
       }
     }
   }
-  
-  public void addAgentAtRandom(Agent a){
+
+  public void addAgentAtRandom(Agent a) {
     ArrayList<Square> nullSquares = new ArrayList<Square>();
-    for(int gridX = 0; gridX < w; gridX++){
-     for(int gridY = 0; gridY < h; gridY++){
-      Square current = gridArray[gridX][gridY];
-      if(current.getAgent() == null){
-       nullSquares.add(current); 
+    for (int gridX = 0; gridX < w; gridX++) {
+      for (int gridY = 0; gridY < h; gridY++) {
+        Square current = gridArray[gridX][gridY];
+        if (current.getAgent() == null) {
+          nullSquares.add(current);
+        }
       }
-     }
     }
     int rand = (int)random(nullSquares.size());
     Square randSquare = nullSquares.get(rand);

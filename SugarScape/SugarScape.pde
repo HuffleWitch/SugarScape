@@ -24,13 +24,14 @@ void setup(){
   myGrid = new SugarGrid(50, 50, 14, gbr);
   myGrid.addSugarBlob(300, 150, 10, 10);
   myGrid.addSugarBlob(600, 400, 7, 7);
+  myGrid.addSugarBlob(0, 500, 10, 10);
   
   for (int i = 0; i < numOfAgents; i++){
    Agent a = af.makeAgent();
    myGrid.addAgentAtRandom(a);
   }
   myGrid.display();
-  frameRate(2);
+  frameRate(10);
 
 }
 
