@@ -87,8 +87,8 @@ class Agent {
   public void step() {
     age++;
     for(int i = sugarLevel; i <= 0; i -= metabolism){
-      if( i < 0){
-       sugarLevel = 0; 
+      if(i < 0){
+       sugarLevel = 0;
       }
     }
   } 

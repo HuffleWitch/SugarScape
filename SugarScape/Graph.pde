@@ -109,3 +109,59 @@ class VisionGraph extends LineGraph{
    return 10 * (-totalVision / totalAgents);
   }
 }
+
+abstract class CDFGraph extends Graph{
+  protected int callsPerValue = 0;
+  protected int numberOfUpdates;
+  
+ public CDFGraph(int x, int y, int howWide, int howTall, String xlab, String ylab, int callsPerValue){
+   super(x, y, howWide, howTall, xlab, ylab);
+   callsPerValue++; 
+   numberOfUpdates = 0;
+ }
+ 
+ public abstract void reset(SugarGrid g);
+ 
+ public abstract int nextPoint(SugarGrid g);
+ 
+ public abstract int getTotalCalls(SugarGrid g);
+ 
+ public void update(SugarGrid g){
+  numberOfUpdates = 0; 
+  super.update(g);
+  reset(g);
+  int numPerCell = (g.w / this.getTotalCalls(g));
+  while(numberOfUpdates < this.getTotalCalls(g)){
+   rect(numberOfUpdates, nextPoint(g), numPerCell, 1);
+   numberOfUpdates++;
+  }
+ }
+}
+
+class WealthCDFGraph extends CDFGraph{
+  protected int sugarSoFar;
+  protected int totalSugar;
+  
+ public WealthCDFGraph(int x, int y, int howWide, int howTall, String xlab, String ylab, int callsPerValue){
+  super(x, y, howWide, howTall, xlab, ylab, callsPerValue);
+ }
+ 
+ public void reset(SugarGrid g){
+  sugarSoFar = 0;
+  ArrayList<Agent> sortedListOfAgents = new ArrayList<>();
+  sortedListOfAgents = g.getAgents();
+  Sorter sorter = new QuickSorter();
+  sorter.sort(sortedListOfAgents);
+ }
+ 
+ public int nextPoint(SugarGrid g){
+  int graphedSoFar = super.numberOfUpdates / callsPerValue;
+  reset(g);
+  return(sugarSoFar/totalSugar);
+ }
+ 
+ public int getTotalCalls(SugarGrid g){
+  int totalCalls = g.getAgents().size() / callsPerValue;
+  return(totalCalls);
+ }
+}
