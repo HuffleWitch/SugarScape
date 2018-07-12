@@ -148,7 +148,7 @@ class WealthCDFGraph extends CDFGraph{
  
  public void reset(SugarGrid g){
   sugarSoFar = 0;
-  ArrayList<Agent> sortedListOfAgents = new ArrayList<>();
+  ArrayList<Agent> sortedListOfAgents = new ArrayList();
   sortedListOfAgents = g.getAgents();
   Sorter sorter = new QuickSorter();
   sorter.sort(sortedListOfAgents);
