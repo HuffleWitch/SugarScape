@@ -104,4 +104,56 @@ class SocialNetwork {
     }
     return null;
   }
+  
+  //question 3
+  public boolean pathExists(Agent x, Agent y){
+    //Returns true if there exists any path through the social network 
+    //that connects x to y. A path should start with node x, proceed through
+    //any node x can see, and then any node that agent can see, and so on, 
+    //until it reaches node y.
+    //Agent x is the 'search key'
+    for (int i = 0; i < adj.length; i++){
+     LinkedList<SocialNetworkNode> path = new LinkedList<SocialNetworkNode>();
+     LinkedList<SocialNetworkNode> socialNetwork = adj[i];
+     if (socialNetwork.peek() != null && socialNetwork.peek().getAgent() == x){
+       SocialNetworkNode currentNode = socialNetwork.peek();
+       currentNode.paint();
+       path.add(currentNode);
+       
+       Iterator<SocialNetworkNode> it;
+       while (path.size() != 0){
+        currentNode = path.poll();
+        
+        SocialNetworkNode extra;
+        it = adj[i].listIterator();
+        
+        while(it.hasNext()){
+         extra = it.next();
+         if(extra.getAgent() == y){
+          resetPaint();
+          return true;
+         }
+         
+         if( !extra.painted()){
+          extra.paint();
+          path.add(n);
+         }
+        }
+        
+       }
+     }
+    }
+    return false;
+  }
+  
+  public List<Agent> bacon(Agent x, Agent y){
+    //Returns the shortest path through the social network from node x 
+    //to node y. If more than one path is the shortest, returns any of the 
+    //shortest ones. If there is no path from x to y, returns null
+    LinkedList<SocialNetwork> shortest = new LinkedList<>();
+    for (int i = 0; i < adj.length; i++){
+      LinkedList<SocialNetworkNode> extra = adj[i];
+    }
+  }
+  return shortest;
 }
