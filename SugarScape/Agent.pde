@@ -11,6 +11,7 @@ class Agent {
   private int sugarLevel;
   private MovementRule movementRule;
   private int age;
+  private char sex;
   
   /* initializes a new Agent with the specified values for its 
   *  metabolism, vision, stored sugar, and movement rule.
@@ -22,8 +23,42 @@ class Agent {
     this.sugarLevel = initialSugar;
     this.movementRule = m;
     this.age = 0;
+    int ranSex = (int)random(0,2);
+    if(ranSez == 0){
+     this.sex = 'X'; 
+    } if(ranSez == 1){
+     this.sex = 'Y'; 
+    } if (this.sex == 'X' || this.sex == 'Y'){
+      
+    } else{
+     assert(false); 
+    }
   }
   
+  public Agent(int metabolism, int vision, int initialSugar, MovementRule m) {
+    this.metabolism = metabolism;
+    this.vision = vision;
+    this.sugarLevel = initialSugar;
+    this.movementRule = m;
+    this.age = 0;
+    this.sex = sex;
+    if(this.sex != 'X' || this.sex != 'Y'){
+     assert(false); 
+    }
+  }
+  
+  public char getSex(){
+   return this.sex; 
+  }
+  
+  public void gift(Agent other, int amount){
+   if(this.getSugarLevel() < amount){
+    assert(fasle); 
+   } else {
+     this.sugarLevel -= amount;
+     other.sugarLevel += amount;
+   }
+  }
   /* returns the amount of food the agent needs to eat each turn to survive. 
   *
   */
