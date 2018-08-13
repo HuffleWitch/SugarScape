@@ -97,6 +97,9 @@ class FertilityRule{
     a.gift(baby, agentsSugar.get(a)/2);
     b.gift(baby, agentsSugar.get(b)/2);
     
+    //baby gets a culture
+    baby.nurture(a, b);
+    
     //gotta place the baby, mom can't carry them forever!
     for(Square s : Alocal){
      if(s.getAgent() == null){

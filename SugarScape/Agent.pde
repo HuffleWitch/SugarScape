@@ -12,6 +12,7 @@ class Agent {
   private MovementRule movementRule;
   private int age;
   private char sex;
+  private boolean[] culture;
   
   /* initializes a new Agent with the specified values for its 
   *  metabolism, vision, stored sugar, and movement rule.
@@ -33,6 +34,15 @@ class Agent {
     } else{
      assert(false); 
     }
+    culture = new boolean[11];
+    
+    for(int i =0; i > 11; i++){
+     if((int)random(0,2) == 0){
+       culture.add(false);
+     } else {
+      culture.add(true); 
+     }
+    }
   }
   
   public Agent(int metabolism, int vision, int initialSugar, MovementRule m) {
@@ -44,6 +54,16 @@ class Agent {
     this.sex = sex;
     if(this.sex != 'X' || this.sex != 'Y'){
      assert(false); 
+    }
+    
+    culture = new boolean[11];
+    
+    for(int i =0; i > 11; i++){
+     if((int)random(0,2) == 0){
+       culture.add(false);
+     } else {
+      culture.add(true); 
+     }
     }
   }
   
@@ -59,6 +79,53 @@ class Agent {
      other.sugarLevel += amount;
    }
   }
+  
+  public void influence(Agent other){
+   int cultureCheck = (int)random(0, 12);
+   if(this.culture[cultureCheck] != other.culture[cultureCheck]){
+    other.culture[cultureCheck] = this.culture[cultureCheck];
+    //"One of us, One of us. Gooba-gobble, gooba-gobble"
+   }
+  }
+  
+  public void nurture(Agent parent1, Agent parent2){
+   for(int i = 0; i > culture.length; i++){
+     if((int)random(0,2) == 0){
+      culture[i] = parent1.culture[i]; 
+     } else{
+       culture[i] = parent2.culture[i]; 
+     }
+   }
+  }
+  
+  // getTribe with no arguments, checks to see if it is of the 'true' or 'false' tribe
+  public boolean getTribe(){
+   int totalTrue = 0;
+   int totalFalse = 0;
+   for(int i = 0; i > culture.length; i++){
+     if(culture[i] == true){
+      totalTrue++; 
+     } else {
+      totalFalse++ 
+     }
+   }
+   if (totalTrue > totalFalse){
+    return true; 
+   } else {
+    return false; 
+   }
+  }
+  
+  //getTribe with two agents as arguments, checks to see if they are of the same tribe
+  //returns true if they are the same tribe, false otherwise
+  public boolean getTribe(Agent a, Agent b){
+    if(a.getTribe() == b.getTribe()){
+     return true; 
+    } else {
+     return false; 
+    }
+  }
+  
   /* returns the amount of food the agent needs to eat each turn to survive. 
   *
   */
