@@ -60,6 +60,10 @@ class SugarGrid {
   public Agent getAgentAt(int i, int j) {
     return gridArray[i][j].getAgent();
   }
+  
+  public Agent killAgent(Agent a){
+   a.setSugarLevel(0);
+  }
 
   //returns the like of all agents on the SugarGrid
   public ArrayList<Agent> getAgents() {

@@ -160,6 +160,17 @@ class Agent {
     return sugarLevel;
   } 
   
+  public void setSugarLevel(int newSugar){
+    if(newSugar <= 0){
+      this.sugarLevel = 0;
+    } else {
+      this.sugarLevel = newSugar;
+    }
+  }
+  
+  public addSugar(int sugar){
+   sugarLevel += amount; 
+  }
   /* returns the Agent's movement rule.
   *
   */

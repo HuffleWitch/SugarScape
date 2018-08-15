@@ -69,3 +69,58 @@ class PollutionMovementRule implements MovementRule{
   return max;
  }
 }
+
+class CombatMovementRule extends SugarSeekingMovementRule{
+  private int alpha;
+  
+  public CombatMovementRule(int alpha){
+   this.alpha = alpha; 
+  }
+  
+  public move(LinkeList<Square> neighbourhood, SugarGrid g, Square middle){
+    Agent middleAgent = middle.getAgent();
+    boolean middleTribe = middleAgent.getTribe();
+    
+    //remove tribe members and garunteed losses
+    for(Square s : neighbourhood){
+     if(s.getAgent() != null){
+      if(s.getAgent().getTribe == middleTribe || s.getAgent().getSugarLevel() > middleAgent.getSugarLevel()){
+       neighbourhood.remove(s); 
+      }
+     }
+    }
+    
+    //retaliation possibilities removed
+    for(Square s : neighbourhood){
+     LinkedList<Square> deathView = g.generateVision(s.getX(), s.getY(), middleAgent.getVision());
+     for(Square sq : deathView){
+      if(sq.getAgent().getSugarLevel > middleAgent.getSugarLevel() && sq.getAgent().getTribe != middleTribe){
+       neighbourhood.remove(sq); 
+      }
+     }
+    }
+    
+    //combat -- uses alternative square to pass to the super.move()
+    LinkedList<Square> superMoveSq = neighbourhood;
+    for(Square s : neighbourhood){
+      if(s.getAgent() !=){
+       int newSugarLevel = s.getAgent().getSugarLevel() + s.getSugar() + alpha;
+       int newMaxSugar = s.getAgent().getSugarLevel() + s.getSugar() + alpha;
+       Square fakeSquare = new Square(newSugarLevel, newMaxSugar, s.getX(), s.getY():
+       superMoveSq.remove(s);
+       superMoveSq.add(fakeSquare);
+      }
+    }
+    
+    Square target = super.move(superMoveSq, g, middle);
+    if(target == null){
+     return target; 
+    } else {
+      Agent casualty = target.getAgent();
+      target.setAgent(null);
+      middleAgent.addSugar(casualty.getSugarLevel() + alpha);
+      g.killAgent(casualty);
+      return target;
+    } 
+  }
+}
